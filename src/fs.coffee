@@ -204,7 +204,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	rename: (oldPath, newPath, callback) ->
+	rename: (oldPath, newPath, callback) =>
 		try
 			@renameSync(oldPath, newPath)
 			callback()
@@ -212,7 +212,7 @@ class fs
 			callback(err)
 
 
-	renameSync: (oldPath, newPath) ->
+	renameSync: (oldPath, newPath) =>
 		oldPath = @realpathSync(oldPath)
 		newPath = @_realpath(newPath)
 
@@ -234,7 +234,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	ftruncate: (fd, len, callback) ->
+	ftruncate: (fd, len, callback) =>
 		try
 			@ftruncateSync(fd, len)
 			callback()
@@ -242,7 +242,7 @@ class fs
 			callback(err)
 
 
-	ftruncateSync: (fd, len) ->
+	ftruncateSync: (fd, len) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -260,7 +260,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	truncate: (path, len, callback) ->
+	truncate: (path, len, callback) =>
 		try
 			@truncateSync(path, len)
 			callback()
@@ -268,7 +268,7 @@ class fs
 			callback(err)
 
 
-	truncateSync: (path, len) ->
+	truncateSync: (path, len) =>
 		path = @_getSourcePath(path)
 
 		if !@existsSync(path)
@@ -288,7 +288,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	chown: (path, uid, gid, callback) ->
+	chown: (path, uid, gid, callback) =>
 		try
 			@chownSync(path, uid, gid)
 			callback()
@@ -296,7 +296,7 @@ class fs
 			callback(err)
 
 
-	chownSync: (path, uid, gid) ->
+	chownSync: (path, uid, gid) =>
 		path = @_getSourcePath(path)
 
 		fd = @openSync(path, 'r')
@@ -309,7 +309,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	fchown: (fd, uid, gid, callback) ->
+	fchown: (fd, uid, gid, callback) =>
 		try
 			@fchownSync(fd, uid, gid)
 			callback()
@@ -317,7 +317,7 @@ class fs
 			callback(err)
 
 
-	fchownSync: (fd, uid, gid) ->
+	fchownSync: (fd, uid, gid) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -329,7 +329,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	lchown: (path, uid, gid, callback) ->
+	lchown: (path, uid, gid, callback) =>
 		try
 			@lchownSync(path, uid, gid)
 			callback(null)
@@ -337,7 +337,7 @@ class fs
 			callback(err)
 
 
-	lchownSync: (path, uid, gid) ->
+	lchownSync: (path, uid, gid) =>
 		path = @realpathSync(path)
 
 		if !@existsSync(path)
@@ -357,7 +357,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	chmod: (path, mode, callback) ->
+	chmod: (path, mode, callback) =>
 		try
 			@chmodSync(path, mode)
 			callback()
@@ -365,7 +365,7 @@ class fs
 			callback(err)
 
 
-	chmodSync: (path, mode) ->
+	chmodSync: (path, mode) =>
 		path = @_getSourcePath(path)
 
 		fd = @openSync(path, 'r', mode)
@@ -378,7 +378,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	fchmod: (fd, mode, callback) ->
+	fchmod: (fd, mode, callback) =>
 		try
 			@fchmodSync(fd, mode)
 			callback(null)
@@ -386,7 +386,7 @@ class fs
 			callback(err)
 
 
-	fchmodSync: (fd, mode) ->
+	fchmodSync: (fd, mode) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -398,7 +398,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	lchmod: (path, mode, callback) ->
+	lchmod: (path, mode, callback) =>
 		try
 			@lchmodSync(path, mode)
 			callback(null)
@@ -406,7 +406,7 @@ class fs
 			callback(err)
 
 
-	lchmodSync: (path, mode) ->
+	lchmodSync: (path, mode) =>
 		path = @realpathSync(path)
 
 		if !@existsSync(path)
@@ -425,14 +425,14 @@ class fs
 	#*******************************************************************************************************************
 
 
-	stat: (path, callback) ->
+	stat: (path, callback) =>
 		try
 			callback(null, @statSync(path))
 		catch err
 			callback(err, null)
 
 
-	statSync: (path) ->
+	statSync: (path) =>
 		path = @_getSourcePath(path)
 
 		fd = @openSync(path, 'r')
@@ -446,14 +446,14 @@ class fs
 	#*******************************************************************************************************************
 
 
-	lstat: (path, callback) ->
+	lstat: (path, callback) =>
 		try
 			callback(null, @lstatSync(path))
 		catch err
 			callback(err, null)
 
 
-	lstatSync: (path) ->
+	lstatSync: (path) =>
 		path = @realpathSync(path)
 
 		if !@existsSync(path)
@@ -472,14 +472,14 @@ class fs
 	#*******************************************************************************************************************
 
 
-	fstat: (fd, callback) ->
+	fstat: (fd, callback) =>
 		try
 			callback(null, @fstatSync(fd))
 		catch err
 			callback(err, null)
 
 
-	fstatSync: (fd) ->
+	fstatSync: (fd) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -491,7 +491,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	link: (srcpath, dstpath, callback) ->
+	link: (srcpath, dstpath, callback) =>
 		try
 			@linkSync(srcpath, dstpath)
 			callback(null)
@@ -499,7 +499,7 @@ class fs
 			callback(err)
 
 
-	linkSync: (srcpath, dstpath) ->
+	linkSync: (srcpath, dstpath) =>
 		srcpath = @realpathSync(srcpath)
 		dstpath = @_realpath(dstpath)
 
@@ -514,7 +514,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	symlink: (srcpath, dstpath, type = null, callback) ->
+	symlink: (srcpath, dstpath, type = null, callback) =>
 		if isFunction(type)
 			callback = type
 			type = null
@@ -526,7 +526,7 @@ class fs
 			callback(err)
 
 
-	symlinkSync: (srcpath, dstpath, type = null) ->
+	symlinkSync: (srcpath, dstpath, type = null) =>
 		srcpath = @realpathSync(srcpath)
 		dstpath = @_realpath(dstpath)
 
@@ -541,14 +541,14 @@ class fs
 	#*******************************************************************************************************************
 
 
-	readlink: (path, callback) ->
+	readlink: (path, callback) =>
 		try
 			callback(null, @readlinkSync(path))
 		catch err
 			callback(err, null)
 
 
-	readlinkSync: (path) ->
+	readlinkSync: (path) =>
 		path = @_getSourcePath(path)
 
 		if !@existsSync(path)
@@ -562,7 +562,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	realpath: (path, cache = null, callback) ->
+	realpath: (path, cache = null, callback) =>
 		if isFunction(cache)
 			callback = cache
 			cache = null
@@ -573,7 +573,7 @@ class fs
 			callback(err, null)
 
 
-	realpathSync: (path, cache = null) ->
+	realpathSync: (path, cache = null) =>
 		if cache != null && typeof cache[path] != 'undefined'
 			return cache[path]
 
@@ -590,7 +590,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	unlink: (path, callback) ->
+	unlink: (path, callback) =>
 		try
 			@unlinkSync(path)
 			callback()
@@ -598,7 +598,7 @@ class fs
 			callback(err)
 
 
-	unlinkSync: (path) ->
+	unlinkSync: (path) =>
 		path = @realpathSync(path)
 
 		if !@existsSync(path)
@@ -615,7 +615,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	rmdir: (path, callback) ->
+	rmdir: (path, callback) =>
 		try
 			@rmdirSync(path)
 			callback()
@@ -623,7 +623,7 @@ class fs
 			callback(err)
 
 
-	rmdirSync: (path) ->
+	rmdirSync: (path) =>
 		path = @realpathSync(path)
 
 		if !@existsSync(path)
@@ -643,7 +643,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	mkdir: (path, mode = null, callback) ->
+	mkdir: (path, mode = null, callback) =>
 		if isFunction(mode)
 			callback = mode
 			mode = null
@@ -655,7 +655,7 @@ class fs
 			callback(err)
 
 
-	mkdirSync: (path, mode = null) ->
+	mkdirSync: (path, mode = null) =>
 		path = @_realpath(path)
 
 		if @existsSync(path)
@@ -670,14 +670,14 @@ class fs
 	#*******************************************************************************************************************
 
 
-	readdir: (path, callback) ->
+	readdir: (path, callback) =>
 		try
 			callback(null, @readdirSync(path))
 		catch err
 			callback(err, null)
 
 
-	readdirSync: (path) ->
+	readdirSync: (path) =>
 		path = @_getSourcePath(path)
 
 		if !@existsSync(path)
@@ -705,7 +705,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	close: (fd, callback) ->
+	close: (fd, callback) =>
 		try
 			@closeSync(fd)
 			callback()
@@ -713,7 +713,7 @@ class fs
 			callback(err)
 
 
-	closeSync: (fd) ->
+	closeSync: (fd) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -725,7 +725,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	open: (path, flags, mode = null, callback) ->
+	open: (path, flags, mode = null, callback) =>
 		if isFunction(mode)
 			callback = mode
 			mode = null
@@ -736,7 +736,7 @@ class fs
 			callback(err, null)
 
 
-	openSync: (path, flags, mode = null) ->
+	openSync: (path, flags, mode = null) =>
 		path = @_getSourcePath(path)
 		exists = @existsSync(path)
 
@@ -762,7 +762,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	utimes: (path, atime, mtime, callback) ->
+	utimes: (path, atime, mtime, callback) =>
 		try
 			@utimesSync(path, atime, mtime)
 			callback(null)
@@ -770,7 +770,7 @@ class fs
 			callback(err)
 
 
-	utimesSync: (path, atime, mtime) ->
+	utimesSync: (path, atime, mtime) =>
 		path = @realpathSync(path)
 
 		fd = @openSync(path, 'r')
@@ -783,7 +783,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	futimes: (fd, atime, mtime, callback) ->
+	futimes: (fd, atime, mtime, callback) =>
 		try
 			@futimesSync(fd, atime, mtime)
 			callback(null)
@@ -791,7 +791,7 @@ class fs
 			callback(err)
 
 
-	futimesSync: (fd, atime, mtime) ->
+	futimesSync: (fd, atime, mtime) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -806,7 +806,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	fsync: (fd, callback) ->
+	fsync: (fd, callback) =>
 		try
 			@fsyncSync(fd)
 			callback(null)
@@ -814,7 +814,7 @@ class fs
 			callback(err)
 
 
-	fsyncSync: (fd) ->
+	fsyncSync: (fd) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -824,7 +824,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	write: (fd, buffer, offset, length, position = null, callback = null) ->
+	write: (fd, buffer, offset, length, position = null, callback = null) =>
 		try
 			@writeSync(fd, buffer, offset, length, position)
 			callback(null, length, buffer) if callback isnt null
@@ -832,7 +832,7 @@ class fs
 			callback(err, null, buffer) if callback isnt null
 
 
-	writeSync: (fd, buffer, offset, length, position = null) ->
+	writeSync: (fd, buffer, offset, length, position = null) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -870,7 +870,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	read: (fd, buffer, offset, length, position = 0, callback = null) ->
+	read: (fd, buffer, offset, length, position = 0, callback = null) =>
 		try
 			@readSync(fd, buffer, offset, length, position)
 			callback(null, length, buffer) if callback isnt null
@@ -878,7 +878,7 @@ class fs
 			callback(err, 0, buffer) if callback isnt null
 
 
-	readSync: (fd, buffer, offset, length, position = 0) ->
+	readSync: (fd, buffer, offset, length, position = 0) =>
 		if !@_hasFd(fd)
 			Errors.fdNotFound(fd)
 
@@ -908,7 +908,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	readFile: (filename, options = {}, callback) ->
+	readFile: (filename, options = {}, callback) =>
 		if isFunction(options)
 			callback = options
 			options = null
@@ -919,7 +919,7 @@ class fs
 			callback(err, null)
 
 
-	readFileSync: (filename, options = {}) ->
+	readFileSync: (filename, options = {}) =>
 		if typeof options.encoding == 'undefined' then options.encoding = null
 		if typeof options.flag == 'undefined' then options.flag = 'r'
 
@@ -943,7 +943,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	writeFile: (filename, data, options = {}, callback) ->
+	writeFile: (filename, data, options = {}, callback) =>
 		if isFunction(options)
 			callback = options
 			options = null
@@ -954,7 +954,7 @@ class fs
 			callback(err, null)
 
 
-	writeFileSync: (filename, data, options = {}) ->
+	writeFileSync: (filename, data, options = {}) =>
 		if typeof options.encoding == 'undefined' then options.encoding = 'utf8'
 		if typeof options.mode == 'undefined' then options.mode = 438
 		if typeof options.flag == 'undefined' then options.flag = 'w'
@@ -973,7 +973,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	appendFile: (filename, data, options = {}, callback) ->
+	appendFile: (filename, data, options = {}, callback) =>
 		if isFunction(options)
 			callback = options
 			options = null
@@ -984,7 +984,7 @@ class fs
 			callback(err, null)
 
 
-	appendFileSync: (filename, data, options = {}) ->
+	appendFileSync: (filename, data, options = {}) =>
 		if typeof options.encoding == 'undefined' then options.encoding = 'utf8'
 		if typeof options.mode == 'undefined' then options.mode = 438
 		if typeof options.flag == 'undefined' then options.flag = 'w'
@@ -1003,7 +1003,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	watchFile: (filename, options = null, listener = null) ->
+	watchFile: (filename, options = null, listener = null) =>
 		if isFunction(options)
 			listener = options
 			options = null
@@ -1016,7 +1016,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	unwatchFile: (filename, listener = null) ->
+	unwatchFile: (filename, listener = null) =>
 		Errors.notImplemented 'unwatchFile'
 
 
@@ -1025,7 +1025,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	watch: (filename, options = null, listener = null) ->
+	watch: (filename, options = null, listener = null) =>
 		if isFunction(options)
 			listener = options
 			options = null
@@ -1047,11 +1047,11 @@ class fs
 	#*******************************************************************************************************************
 
 
-	exists: (path, callback) ->
+	exists: (path, callback) =>
 		callback(@existsSync(path))
 
 
-	existsSync: (path) ->
+	existsSync: (path) =>
 		path = @_realpath(path)
 		return typeof @_data[path] != 'undefined'
 
@@ -1061,7 +1061,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	createReadStream: (path, options = {}) ->
+	createReadStream: (path, options = {}) =>
 		if typeof options.flags == 'undefined' then options.flags = 'r'
 		if typeof options.encoding == 'undefined' then options.encoding = null
 		if typeof options.fd == 'undefined' then options.fd = null
@@ -1105,7 +1105,7 @@ class fs
 	#*******************************************************************************************************************
 
 
-	createWriteStream: (path, options = {}) ->
+	createWriteStream: (path, options = {}) =>
 		if typeof options.flags == 'undefined' then options.flags = 'w'
 		if typeof options.encoding == 'undefined' then options.encoding = null
 		if typeof options.mode == 'undefined' then options.mode = 666
